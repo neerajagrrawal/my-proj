@@ -10,11 +10,13 @@ router.get('/add-page',(req,res)=>{
   var title= "" ;
   var slug="" ;
   var content="" ;
+  var errors = req.flash('errors') ;
 
   res.render('admin/add_page',{
     title:title,
     slug:slug,
-    content:content
+    content:content,
+    errors : errors
   })
 }) ;
 
@@ -22,7 +24,8 @@ router.post('/add-page',[
   check('title').not().isEmpty().withMessage('Title must not be empty'),
   check('content').not().isEmpty().withMessage('Content must not be empty')
 ],
-(req,res)=>{
+    (req,res)=>{
+
 
   const errors = validationResult(req);
   var title = req.body.title ;
@@ -30,12 +33,8 @@ router.post('/add-page',[
   var content = req.body.content ;
 
   if (!errors.isEmpty()) {
-    res.render('admin/add_page',{
-      errors : errors.errors,
-      title : title,
-      slug: slug,
-      content : content
-    }) ;
+    req.flash('errors',errors.errors) ;
+    res.redirect('/admin/pages/add-page') ;
   }else{
     console.log('success');
   }
