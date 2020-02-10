@@ -23,3 +23,4 @@ var pageSchema = mongoose.Schema({
 
 
 var Page = mongoose.model('Page',pageSchema) ;
+module.exports = Page ;
