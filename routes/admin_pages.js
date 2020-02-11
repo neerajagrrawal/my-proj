@@ -40,9 +40,7 @@ console.log('inside post req');
     req.flash('errors',errors.errors) ;
     res.redirect('/admin/pages/add-page') ;
   }else{
-    console.log('nothing is empty');
     Page.findOne({slug:slug},(err,page)=>{
-      console.log('inside finding slug in db');
       if(page){
         req.flash('danger','Page slug exists, use another') ;
         res.render('admin/add_page',{
@@ -57,14 +55,11 @@ console.log('inside post req');
           content: content,
           sorting : 0
         }) ;
-        console.log('Now saving in db');
         page.save((err)=>{
           if(err)
             console.log(err);
           else {
-            console.log('saved in db');
             req.flash('success', 'Page created succesfully') ;
-            console.log('everything success');
             res.redirect('/admin/pages/add-page') ;
           }
         }) ;

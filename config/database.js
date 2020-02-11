@@ -1,3 +1,3 @@
 module.exports = {
-  db: 'mongodb://127.0.0.1:27017/local'
+  db: 'mongodb+srv://test:test@cluster0-4mub5.mongodb.net/test?retryWrites=true&w=majority'
 }
