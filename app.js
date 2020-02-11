@@ -7,9 +7,13 @@ var session = require('express-session') ;
 var passport = require('passport') ;
 var flash = require('connect-flash') ;
 
+mongoose.connect(config.db, { useNewUrlParser:true, useUnifiedTopology: true})
+.then((res) => {
+console.log("Connected to MongoDB!!.")})
+.catch((e) => {console.log("Error connecting to MongoDb" );});
 
-mongoose.connect(config.db,{useNewUrlParser: true, useUnifiedTopology: true}).
-  then(error => console.log(error),()=> console.log('Connected to mongodb') );
+
+
 
 var app=express() ;
 
