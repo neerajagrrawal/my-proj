@@ -12,6 +12,31 @@ router.get('/',(req,res)=>{
   }) ;
 }) ;
 
+router.post('/update-order',(req,res)=>{
+  var orderedSlugs, size ;
+  Object.keys(req.body).forEach(function(key) {
+    orderedSlugs = req.body[key];
+});
+size = orderedSlugs.length;
+var i=0;
+for (i = 1; i<=size ; i++) {
+  var result = await Page.findOne({slug: orderedSlugs[i-1]},(err,page)=>{
+    if(err)
+      console.log(err);
+      page.sorting = i ;
+      page.save(err=>{
+        if(err)
+          console.log(err);
+        console.log('Page saved');
+      }) ;
+    console.log(page);
+
+  });
+}
+}) ;
+
+
+
 router.get('/add-page',(req,res)=>{
   var title= req.flash('title') ;
   var slug= req.flash('slug') ;
