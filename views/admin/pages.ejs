@@ -32,6 +32,7 @@
 
 <script type="text/javascript">
       $('tbody').sortable({
+        items: 'tr:not(#home)',
         update: function(event,ui){
           var slugs = { slugs : $('tbody').sortable("toArray") } ;
           var url = '/admin/pages/update-order'

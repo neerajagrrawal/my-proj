@@ -18,21 +18,29 @@ router.post('/update-order',(req,res)=>{
     orderedSlugs = req.body[key];
 });
 size = orderedSlugs.length;
-var i=0;
-for (i = 1; i<=size ; i++) {
-  var result = await Page.findOne({slug: orderedSlugs[i-1]},(err,page)=>{
-    if(err)
-      console.log(err);
-      page.sorting = i ;
-      page.save(err=>{
-        if(err)
-          console.log(err);
-        console.log('Page saved');
-      }) ;
-    console.log(page);
+var i=0 ;
 
-  });
+
+(async ()=> {
+for (i = 1; i<=size;i++) {
+    try{
+      var page = await Page.findOne({slug: orderedSlugs[i-1]}).exec() ;
+   }
+    catch(error){
+      console.log('Error while connecting to db');
+    }
+
+//console.log(page);
+    if(page){
+      page.sorting = i ;
+        page.save(err=>{
+          if(err)
+            console.log(err);
+        }) ;
+    }
 }
+})() ;
+
 }) ;
 
 
